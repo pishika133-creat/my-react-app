@@ -18,7 +18,7 @@ function Forms(){
   
 
   return (
-    <div style={{dispaly:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
+    <div style={{display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column"}}>
       <div style={{width:"170px",height:"200px",borderRadius:"6px",background:"red",
         padding:"30px",margin:"0",justifyContent:"center",alignItems:"center",dispaly:"flex",
         flexDirection:"column",textAlign:"center",marginBottom:"20px",

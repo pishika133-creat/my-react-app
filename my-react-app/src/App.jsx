@@ -10,6 +10,8 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import About from './Components/Pages/About';
 import Contactus from './Components/Pages/Contactus';
 import Forms from './Components/Pages/Forms';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 function App() {
@@ -23,7 +25,8 @@ console.log("showDeaderFooter:",showHeaderFooter)
   return (
     <>
       <div>
-              {showHeaderFooter &&  <Header />}
+        <ToastContainer/>
+           {showHeaderFooter &&  <Header />}
 
        
         <Routes>

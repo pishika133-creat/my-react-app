@@ -1,44 +1,107 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-    const [formData, setFormData] = useState({
-        email: "",
-        password: ""
-    })
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+let navigate = useNavigate()
+  let api = import.meta.env.VITE_API_URL;
+console.log("api:",api)
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
+  async function handleSubmit(e) {
+    e.preventDefault();
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        const formData = new formData(e.target);
-        const data = Object.formEntries(formData.entries());
-        alert("from sumbit success");
-        console.log("data", data);
+    try {
+      let res = await axios.post(`${api}login`, formData);
+
+      console.log("res", res.data);
+
+      // ✅ Toast success
+      toast.success(res.data.message);
+
+      // ✅ Store in localStorage
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.data));
+      setTimeout(()=>{
+        navigate("/")
+      },1500)
+
+    } catch (error) {
+      console.log("error", error);
+
+      // ❌ Toast error
+      toast.error(error?.response?.data?.message || "Login failed");
     }
-    return (
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
-            <div style={{
-                width: "300px", height: "200px", borderRadius: "10px",
-                backgroundColor: "pink", padding: "20px", margin: "20px",
-                display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column"
-            }}>
-                <h2>Login page</h2>
-                <form action="" onSumbit={handleSubmit}>
-                    <lable HtmlFor="">Email</lable>
-                    <br></br>
-                    <input type="text" id="eamil" placeholder="Enter your email"></input>
-                    <br></br>
-                    <lable htmlFor="">Password</lable>
-                    <br></br>
-                    <input type="number" palceholder="Enter your password"></input>
-                    <br></br>
+  }
 
+  return (
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
+      <div style={{
+        width: "300px",
+        height: "250px",
+        borderRadius: "10px",
+        backgroundColor: "pink",
+        padding: "20px",
+        margin: "20px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column"
+      }}>
+        <h2>Login page</h2>
 
-                    <button type="sumbit" style={{ width: "100%", marginTop: "10px", borderRadius: "10px", padding: "8px", backgroundColor: "blue", color: "white", border: "none", borderRadies: "5px" }}>sumbit</button>
-                </form>
-            </div>
-        </div>
+        <form onSubmit={handleSubmit}>
+          <label>Email</label>
+          <br />
+          <input
+            type="text"
+            placeholder="Enter your email"
+            name="email"
+            onChange={handleChange}
+          />
 
-    )
-}
+          <br />
 
-export default Login
+          <label>Password</label>
+          <br />
+          <input
+            type="password"
+            placeholder="Enter your password"
+            name="password"
+            onChange={handleChange}
+          />
+
+          <br />
+
+          <button
+            type="submit"
+            style={{
+              width: "100%",
+              marginTop: "10px",
+              borderRadius: "10px",
+              padding: "8px",
+              backgroundColor: "blue",
+              color: "white",
+              border: "none",
+            }}
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default Login;
