@@ -6,19 +6,26 @@ import Home from './Components/Pages/Home'
 import Condition from './Components/Pages/Condition';
 import Login from './Components/Pages/Login';
 import Signup from './Components/Pages/Signup';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import About from './Components/Pages/About';
 import Contactus from './Components/Pages/Contactus';
+import Forms from './Components/Pages/Forms';
 
 
 function App() {
+  const location = useLocation();
 
+  const hideOnPaths = ['/login', '/signup'];
+  const showHeaderFooter = !hideOnPaths.includes(location.pathname);
+console.log("showDeaderFooter:",showHeaderFooter)
   let name = "harry"
 
   return (
     <>
       <div>
-        <Header />
+              {showHeaderFooter &&  <Header />}
+
+       
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup/>}/>
@@ -27,8 +34,13 @@ function App() {
           <Route path='/listing' element={<Listing data={name} />} />
           <Route path='/about' element={<About/>} />
           <Route path='/contactus' element={<Contactus/>} />
+            <Route path="/forms" element={<Forms />} />
+
+          
         </Routes>
-        <Footer />
+                      {showHeaderFooter &&  <Footer />}
+
+       
       </div>
 
 
