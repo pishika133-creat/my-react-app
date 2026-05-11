@@ -8,9 +8,15 @@ const Login = () => {
     email: "",
     password: "",
   });
-let navigate = useNavigate()
-  let api = import.meta.env.VITE_API_URL;
-console.log("api:",api)
+
+let navigate = useNavigate()// navigate
+
+  let api = import.meta.env.VITE_API_URL;//api 
+
+console.log("form data",formData)
+// console.log("api:",api)
+
+//usestate update
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -20,17 +26,15 @@ console.log("api:",api)
   };
 
   async function handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault();// by default submit
 
     try {
-      let res = await axios.post(`${api}login`, formData);
+      let res = await axios.post(`${api}login`, formData);// data send to backend
 
       console.log("res", res.data);
 
-      // ✅ Toast success
       toast.success(res.data.message);
 
-      // ✅ Store in localStorage
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.data));
       setTimeout(()=>{
@@ -40,7 +44,6 @@ console.log("api:",api)
     } catch (error) {
       console.log("error", error);
 
-      // ❌ Toast error
       toast.error(error?.response?.data?.message || "Login failed");
     }
   }
