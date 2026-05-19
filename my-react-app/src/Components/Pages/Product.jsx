@@ -1,13 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Product = () => {
   const [product, setProduct] = useState([]);
 
   let api = import.meta.env.VITE_API_URL;
-  
+  // http://157.66.191.24:4447/api/
   let imgUrl = import.meta.env.VITE_IMG_URL;
 
+  let navigate = useNavigate()
   // get all products
   async function getAllProduct() {
     try {
@@ -31,6 +33,11 @@ const Product = () => {
     console.log("buy item", item);
 
     alert(`Buy this product: ${item.productName}`);
+  }
+
+  function ProductDetails(id) {
+    console.log("product id",id)
+    navigate(`/productDetails/${id}`)
   }
 
   return (
@@ -68,9 +75,11 @@ const Product = () => {
               boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
             }}
           >
+
             <img
               src={`${imgUrl}${item.productImage}`}
               alt={item.productName}
+              onClick={() => ProductDetails(item._id)}
               style={{
                 width: "100%",
                 height: "200px",

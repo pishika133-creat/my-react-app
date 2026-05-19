@@ -11,7 +11,7 @@ const Login = () => {
 
 let navigate = useNavigate()// navigate
 
-  let api = import.meta.env.VITE_API_URL;//api 
+  let api = import.meta.env.VITE_API_URL;//http://157.66.191.24:4447/api/ 
 
 console.log("form data",formData)
 // console.log("api:",api)
@@ -27,7 +27,7 @@ console.log("form data",formData)
 
   async function handleSubmit(e) {
     e.preventDefault();// by default submit
-
+// http://157.66.191.24:4447/api/login`
     try {
       let res = await axios.post(`${api}login`, formData);// data send to backend
 

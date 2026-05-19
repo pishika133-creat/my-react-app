@@ -14,6 +14,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Counter from './useEffect/Counter';
 import Users from './useEffect/Users';
+import ThemeContext from "./Components/Pages/useContext/ThemeContext";
+import ProductDetails from './Components/Pages/ProductDetails';
 
 
 function App() {
@@ -42,7 +44,8 @@ function App() {
           <Route path="/forms" element={<Forms />} />
           <Route path="/counter" element={<Counter />} />
           <Route path="/users" element={<Users />} />
-
+          <Route path="/themecontext" element={<ThemeContext />} />
+          <Route path="/productdetails/:id" element={<ProductDetails/>} />
 
         </Routes>
         {showHeaderFooter && <Footer />}
